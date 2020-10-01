@@ -20,6 +20,8 @@ def up(name)
   path = "#{MoodleDocker.base_dir}/#{name}"
   puts "Switch to base directory #{path}"
   FileUtils.cd(path) do
+    ENV['XDEBUG_CONFIG'] = "remote_host=" + `hostname -I`
+    puts "Set XDEBUG_CONFIG to " + "remote_host=" + `hostname -I`
     success = system "docker-compose up -d"
     if !success
       return false;
